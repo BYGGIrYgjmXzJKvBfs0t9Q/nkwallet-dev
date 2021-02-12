@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h4>index</h4>
-    <div class="router-link">
-      <router-link to="info">info page</router-link>
-    </div>
+    <wallet-create />
+    <wallet-info />
+    <wallet-open />
   </div>
 </template>

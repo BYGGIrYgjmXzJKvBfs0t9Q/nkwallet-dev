@@ -1,9 +1,9 @@
 import nkn from 'nkn-sdk'
 
 export const state = () => ({
-  balance: 'waiting...',
+  balance: null,
   wallet: {
-    address: 'waiting...'
+    address: null,
   },
   error: false
 })
@@ -23,14 +23,13 @@ export const mutations = {
 export const actions = {
   createError ({ commit }, input) {
     commit('setError', input)
-    // todo: refresh timeout
     setTimeout(() => {
       commit('setError', false)
     }, 2500)
   },
-  async createWallet ({ commit, dispatch }, password) {
-    if (password && typeof password === 'string') {
-      commit('setWallet', new nkn.Wallet({password}))
+  async createWallet ({ commit, dispatch }, input) {
+    if (input && typeof input === 'string') {
+      commit('setWallet', new nkn.Wallet({password: input}))
       const res = await this.state.wallet.getBalance()
       commit('setBalance', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
     } else {

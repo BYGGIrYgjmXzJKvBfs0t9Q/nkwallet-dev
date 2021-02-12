@@ -1,9 +1,7 @@
 <template>
   <div class="container">
-    <p class="title">open wallet</p>
-    <p>address: {{wallet.address}}</p>
-    <p>balance: {{balance}}</p>
-    <p v-if="error" class="error">{{error}}</p>
+    <p class="title">open saved wallet</p>
+    <button @click="openFromFile">click to open</button>
   </div>
 </template>
 

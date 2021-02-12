@@ -27,13 +27,24 @@ export const actions = {
       commit('setError', false)
     }, 2500)
   },
+  async updateBalance ({ commit }) {
+    const res = await this.state.wallet.getBalance()
+    commit('setBalance', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
+  },
   async createWallet ({ commit, dispatch }, input) {
     if (input && typeof input === 'string') {
       commit('setWallet', new nkn.Wallet({password: input}))
-      const res = await this.state.wallet.getBalance()
-      commit('setBalance', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
+      dispatch('updateBalance')
     } else {
       dispatch('createError', 'please enter a password')
     }
   },
+  async openWallet ({ commit, dispatch }, input) {
+    const res = await nkn.Wallet.fromJSON(input.wallet, {password: input.password})
+    console.log('response')
+    console.log(res)
+    commit('setWallet', res)
+    dispatch('updateBalance')
+    // ...
+  }
 }

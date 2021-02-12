@@ -40,11 +40,12 @@ export const actions = {
     }
   },
   async openWallet ({ commit, dispatch }, input) {
-    const res = await nkn.Wallet.fromJSON(input.wallet, {password: input.password})
-    console.log('response')
-    console.log(res)
-    commit('setWallet', res)
-    dispatch('updateBalance')
-    // ...
+    try {
+      const res = await nkn.Wallet.fromJSON(input.wallet, {password: input.password})
+      commit('setWallet', res)
+      dispatch('updateBalance')
+    } catch (err) {
+      dispatch('createError', err)
+    }
   }
 }

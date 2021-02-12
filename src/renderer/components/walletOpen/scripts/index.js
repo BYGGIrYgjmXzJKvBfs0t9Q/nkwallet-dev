@@ -1,7 +1,12 @@
 import { mapState, mapActions } from 'vuex';
-import { savedWallet, savedPassword } from '@/assets/scripts/savedWallet.js';
+import { savedWallet } from '@/assets/scripts/savedWallet.js';
 
 export default {
+  data () {
+    return {
+      password: ''
+    }
+  },
   computed: {
     ...mapState(['wallet', 'balance', 'error']),
   },
@@ -9,7 +14,7 @@ export default {
     ...mapActions(['openWallet']),
     openFromFile () {
       // console.log(this.openWallet)
-      this.openWallet({ wallet: savedWallet, password: savedPassword})
+      this.openWallet({ wallet: savedWallet, password: this.password})
     },
   }
 }

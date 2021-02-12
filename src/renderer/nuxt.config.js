@@ -6,15 +6,21 @@
 
 
 module.exports = {
-  mode: 'spa', // or 'universal'
+  // mode: 'spa', // or 'universal'
   head: {
-    title: 'nkdev',
-    meta: [{ charset: "utf-8" }]
+    title: 'nkwallet-electron',
+    htmlAttrs: {
+      lang: 'en'
+    },
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: '' }
+    ],
   },
-  loading: false,
+  // loading: false,
+  components: true,
   plugins: [
-    
-    
     
   ],
   buildModules: [

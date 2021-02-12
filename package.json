@@ -1,5 +1,5 @@
 {
-  "name": "nkdev",
+  "name": "nkwallet-electron",
   "version": "0.0.1",
   "description": "An electron-nuxt project",
   "main": "./dist/main/index.js",
@@ -20,6 +20,10 @@
   "resolutions": {
     "@types/node": "12.12.6"
   },
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "nkn-sdk": "^1.2.0"
+  },
   "devDependencies": {
     "@xpda-dev/core": "^0.1.5",
     "@xpda-dev/electron-launcher": "^0.2.1",
@@ -34,6 +38,9 @@
     "native-ext-loader": "2.3.0",
     "nuxt": "2.14.5",
     "vue-devtools": "5.1.4",
+    "fibers": "^5.0.0",
+    "sass": "^1.32.6",
+    "sass-loader": "10",
     "webpack": "4.44.2",
     "webpack-node-externals": "2.5.2"
   }

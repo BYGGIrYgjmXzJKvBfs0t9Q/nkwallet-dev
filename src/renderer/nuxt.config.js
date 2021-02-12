@@ -17,15 +17,31 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
   },
-  // loading: false,
-  components: true,
+
+  // Global CSS: https://go.nuxtjs.dev/config-css
+  css: [
+    '@/assets/styles/global.scss'
+  ],
+
   plugins: [
     
   ],
+
+  // Auto import components: https://go.nuxtjs.dev/config-components
+  // components: true,
+  components: [
+    { path: '~/components', extensions: ['vue'] }
+  ],
+
   buildModules: [
     
   ],
+
+
   modules: [
     
   ],

@@ -1,0 +1,22 @@
+$bgcolor: rgb(82, 65, 54);
+$textcolor: darkblue;
+$fontsize: 16px;
+
+body {
+  // background-color: $bgcolor;
+  color: $textcolor;
+  font-size: $fontsize;
+} 
+
+.router-link {
+  padding: 24px;
+  :hover {
+    color: white;
+  }
+}
+
+.error {
+  padding: 24px;
+  color: red;
+  font-weight: bold;
+}

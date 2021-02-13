@@ -1,10 +1,10 @@
 <template>
   <div class="create-modal">
-    <input v-model="displayName" type="text" placeholder="display name" />
+    <!-- <input v-model="displayName" type="text" placeholder="display name" />
     <br />
     <input v-model="password" type="text" placeholder="password" />
     <br />
-    <button @click="createWallet(password)">create wallet</button>
+    <button @click="createWallet(password)">create wallet</button> -->
   </div>
 </template>
 

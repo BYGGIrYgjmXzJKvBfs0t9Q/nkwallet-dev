@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <p class="title">generated wallet</p>
+    <p class="title">current wallet</p>
     <p>address: {{wallet.address}}</p>
     <p>balance: {{balance}}</p>
     <p v-if="error" class="error">{{error}}</p>

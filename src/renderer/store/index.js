@@ -44,8 +44,8 @@ export const actions = {
       const res = await nkn.Wallet.fromJSON(input.wallet, {password: input.password})
       commit('setWallet', res)
       dispatch('updateBalance')
-    } catch (err) {
-      dispatch('createError', err)
+    } catch {
+      dispatch('createError', 'incorrect password')
     }
   }
 }

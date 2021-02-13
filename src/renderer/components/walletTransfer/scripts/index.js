@@ -1,13 +1,11 @@
-// to
-// 
-
-
 // from
+//
+// savedWallet.json
+//
 // NKNKST4P3ZQDRh8pSBfXcSBuuYa3BpiaSs4z
 
-
-
-
+// to:
+//
 // address
 // 'NKNTZHpbc26wuqHqr168mmrnSkKzQKTRAmHr'
 //
@@ -16,3 +14,18 @@
 //
 // password
 // pw
+
+// https://docs.nkn.org/nkn-sdk-js/#wallettransferto
+//
+// Transfer token from this wallet to another wallet address.
+//
+// transferTo(
+//   toAddress: string,
+//   amount: (number | string | common.Amount),
+//   options: TransactionOptions
+// ): Promise<TxnOrHash>
+//
+// transferTo(toAddress, amount, options)
+//   toAddress (string)
+//   amount ((number | string | common.Amount))
+//   options (TransactionOptions = {})

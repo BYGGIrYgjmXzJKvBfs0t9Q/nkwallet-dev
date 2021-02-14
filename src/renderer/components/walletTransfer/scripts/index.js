@@ -22,9 +22,8 @@ export default {
         this.createStatus('[ERROR] no wallet loaded')
       } else {
         try {
-          const transferRes = await this.wallet.transferTo(this.receiveAddress, this.amount, {fee: this.fee})
-          console.log('transfer resolve:', transferRes)
-          this.createStatus(`<SUCCESS> transfer ID: ${transferRes}`)
+          const transferId = await this.wallet.transferTo(this.receiveAddress, this.amount, {fee: this.fee})
+          this.createStatus(`<SUCCESS> transfer ID: ${transferId}`)
           this.updateBalance()
           this.getReceiverBalance()
         } catch (e) {

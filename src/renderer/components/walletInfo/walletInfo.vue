@@ -3,7 +3,6 @@
     <p class="title">current wallet</p>
     <p>address: {{wallet.address}}</p>
     <p>balance: {{balance}}</p>
-    <!-- <p v-if="error" class="error">{{error}}</p> -->
   </div>
 </template>
 

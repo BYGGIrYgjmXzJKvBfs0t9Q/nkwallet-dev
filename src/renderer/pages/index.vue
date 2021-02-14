@@ -4,5 +4,6 @@
     <wallet-info />
     <wallet-open />
     <wallet-transfer />
+    <status-bar />
   </div>
 </template>

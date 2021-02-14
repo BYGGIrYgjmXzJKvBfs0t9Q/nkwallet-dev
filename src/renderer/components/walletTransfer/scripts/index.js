@@ -46,20 +46,27 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wallet','balance']), // new nkn.Wallet.fromJSON(<...>).getBalance()
+    ...mapState(['wallet','balance']),
+    fee () {
+      return this.amount * 0.005
+    },
   },
   methods: {
     ...mapActions(['updateBalance', 'createError']),
-    //
     async transferFunds () {
-
-      if (!this.state.wallet.address || !this.state.balance || !this.receiveAddress) {
+      console.log('transfer funds started')
+      if (!this.wallet.address || !this.balance || !this.receiveAddress) {
         this.createError('no wallet loaded')
       } else {
-        await this.wallet.transferTo(this.receiveAddress, this.amount, {})
-        this.updateBalance()
+        try {
+          await this.wallet.transferTo(this.receiveAddress, this.amount, {fee: this.fee})
+          console.log('transfer funds success, update balance started')
+          this.updateBalance()
+        } catch (e) {
+          console.log('caught error')
+          throw e
+        }
       }
-
     }
     //
   },
@@ -67,3 +74,35 @@ export default {
     // console.log('storage', localStorage)
   // }
 }
+
+
+
+// reference
+/*
+    transfer () {
+      const self = this
+
+      const wallet = this.activeWallet
+      const address = this.address
+      const amount = this.amount
+      const fee = this.fee
+
+      wallet.transferTo(address, amount, { fee })
+        .then(data => {
+          self.$store.dispatch('snackbar/updateSnack', {
+            snack: 'walletTransferSuccess',
+            color: 'success',
+            timeout: true
+          })
+          self.$emit('toggleTransferConfirmModal', false)
+        })
+        .catch(error => {
+          self.$store.dispatch('snackbar/updateSnack', {
+            snack: error,
+            color: 'error',
+            timeout: true
+          })
+          self.$emit('toggleTransferConfirmModal', false)
+        })
+    },
+*/

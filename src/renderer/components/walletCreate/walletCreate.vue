@@ -1,5 +1,5 @@
 <template>
-  <div class="create-modal">
+  <div class="container">
     <input v-model="displayName" type="text" placeholder="display name" />
     <br />
     <input v-model="password" type="text" placeholder="password" />

@@ -36,26 +36,34 @@
 //   options (TransactionOptions = {})
 
 import { mapActions, mapState } from 'vuex';
-import sendWallet from '@/assets/scripts/sendWallet.json'
 import receiveWallet from '@/assets/scripts/receiveWallet.json'
 
 export default {
   data () {
     return {
-      // password: ''
+      receiveAddress: receiveWallet.Address,
+      amount: 0.1,
     }
   },
   computed: {
-    ...mapState(['wallet', 'error']),
+    ...mapState(['wallet','balance']), // new nkn.Wallet.fromJSON(<...>).getBalance()
   },
   methods: {
-    ...mapActions(['updateBalance']),
-    transferFunds () {
-      // ...
-      this.updateBalance()
+    ...mapActions(['updateBalance', 'createError']),
+    //
+    async transferFunds () {
+
+      if (!this.state.wallet.address || !this.state.balance || !this.receiveAddress) {
+        this.createError('no wallet loaded')
+      } else {
+        await this.wallet.transferTo(this.receiveAddress, this.amount, {})
+        this.updateBalance()
+      }
+
     }
+    //
   },
-  mounted () {
-    console.log('storage', localStorage)
-  }
+  // mounted () {
+    // console.log('storage', localStorage)
+  // }
 }

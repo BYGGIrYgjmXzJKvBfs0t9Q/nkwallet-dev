@@ -1,10 +1,7 @@
 <template>
   <div class="create-modal">
-    <!-- <input v-model="displayName" type="text" placeholder="display name" />
-    <br />
-    <input v-model="password" type="text" placeholder="password" />
-    <br />
-    <button @click="createWallet(password)">create wallet</button> -->
+    <p class='title'>transfer {{amount}} NKN to {{receiveAddress}}</p>
+    <button @click="transferFunds">click to transfer</button>
   </div>
 </template>
 

@@ -1,9 +1,9 @@
 import nkn from 'nkn-sdk'
 
 export const state = () => ({
-  balance: null,
+  balance: false,
   wallet: {
-    address: null,
+    address: false,
   },
   error: false
 })

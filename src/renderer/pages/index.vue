@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="window">
     <wallet-create />
     <wallet-info />
     <wallet-open />

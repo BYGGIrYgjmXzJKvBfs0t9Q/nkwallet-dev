@@ -46,13 +46,14 @@ export default {
       receiveAddress: receiveWallet.Address,
       receiverBalance: false,
       amount: 0.1,
+      fee: 0
     }
   },
   computed: {
     ...mapState(['wallet','balance']),
-    fee () {
-      return this.amount * 0.005
-    },
+    // fee () {
+    //   return this.amount * 0.005
+    // },
   },
   methods: {
     ...mapActions(['updateBalance', 'createError']),
@@ -74,7 +75,7 @@ export default {
     async getReceiverBalance () {
       const updatedBalance = await nkn.Wallet.getBalance(this.receiveAddress)
       const res = new Decimal(updatedBalance).toFixed()
-      this.receiverBalance = res
+      this.receiverBalance = `${res} NKN`
     }
   },
   mounted () {

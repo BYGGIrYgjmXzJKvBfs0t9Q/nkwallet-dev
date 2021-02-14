@@ -36,13 +36,21 @@ export const actions = {
   },
 
   async updateWalletInfo ({ commit }) {
-    const res = await fetchWallet(this.wallet.address)
-    commit('setWalletInfo', res)
+    console.log('wallet info updating in 60 seconds')
+    setTimeout(async () => { 
+      const res = await fetchWallet(this.state.wallet.address)
+      console.log('wallet info:', res)
+      commit('setWalletInfo', res)
+    }, 60 * 1000)
   },
 
   async updateTransactionInfo ({ commit }, input) {
-    const res = await fetchTransaction(input)
-    commit('setTransactionInfo', res)
+    console.log('transaction info updating in 60 seconds')
+    setTimeout(async () => {
+      const res = await fetchTransaction(input)
+      console.log('transaction info:', res)
+      commit('setTransactionInfo', res)
+    }, 60 * 1000)
   },
 
   async createWallet ({ commit, dispatch }, input) {

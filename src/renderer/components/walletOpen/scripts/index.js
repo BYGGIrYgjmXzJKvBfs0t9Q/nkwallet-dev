@@ -1,5 +1,5 @@
 import { mapActions } from 'vuex';
-import savedWallet from '@/assets/scripts/savedWallet.json'
+import sendWallet from '@/assets/scripts/sendWallet.json'
 
 export default {
   data () {
@@ -10,8 +10,9 @@ export default {
   methods: {
     ...mapActions(['openWallet']),
     openFromFile () {
-      this.openWallet({ wallet: savedWallet, password: this.password})
-    },
+      this.openWallet({ wallet: sendWallet, password: this.password})
+    }
+    // this.openFromSeed() {}
   },
   mounted () {
     console.log('storage', localStorage)

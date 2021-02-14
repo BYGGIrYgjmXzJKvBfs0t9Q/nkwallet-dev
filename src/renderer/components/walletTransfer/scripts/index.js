@@ -36,6 +36,7 @@
 //   options (TransactionOptions = {})
 
 import { mapActions, mapState } from 'vuex';
+import nkn from 'nkn-sdk'
 import receiveWallet from '@/assets/scripts/receiveWallet.json'
 
 export default {
@@ -50,6 +51,9 @@ export default {
     fee () {
       return this.amount * 0.005
     },
+    async receiverBalance () {
+      // const res = await 
+    }
   },
   methods: {
     ...mapActions(['updateBalance', 'createError']),
@@ -63,16 +67,23 @@ export default {
           console.log('transfer funds success, update balance started')
           this.updateBalance()
         } catch (e) {
-          console.log('caught error')
-          throw e
+          // this.createError(e)
+          console.error('caught error', e)
         }
       }
     }
     //
+    // const res = await nkn.Wallet.fromJSON(input.wallet, {password: input.password})
+
   },
-  // mounted () {
-    // console.log('storage', localStorage)
-  // }
+  async mounted () {
+    const senderBalance = await nkn.Wallet.getBalance('NKNKST4P3ZQDRh8pSBfXcSBuuYa3BpiaSs4z')
+    const receiverBalance = await nkn.Wallet.getBalance(this.receiveAddress)
+    // console.log(`sender balance: ${(senderBalance.d[0]/100) * (10 ** senderBalance.e)} NKN`)
+    // console.log(`receiver balance: ${(receiverBalance.d[0]/100) * (10 ** receiverBalance.e)} NKN`)
+    console.log('sender balance:', senderBalance)
+    console.log('receiver balance:', receiverBalance)
+  }
 }
 
 

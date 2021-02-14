@@ -28,7 +28,9 @@ export const actions = {
     }, 2500)
   },
   async updateBalance ({ commit }) {
+    console.log('updating balance')
     const res = await this.state.wallet.getBalance()
+    console.log('got response', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
     commit('setBalance', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
   },
   async createWallet ({ commit, dispatch }, input) {

@@ -6,7 +6,8 @@ export const state = () => ({
   wallet: {
     address: null,
   },
-  status: null
+  status: null,
+  explorer: 'https://nscan.io/'
 })
 
 export const mutations = {
@@ -35,6 +36,7 @@ export const actions = {
   async createWallet ({ commit, dispatch }, input) {
     if (input && typeof input === 'string') {
       commit('setWallet', new nkn.Wallet({password: input}))
+      dispatch('createStatus', '<SUCCESS> created wallet')
       dispatch('updateBalance')
     } else {
       dispatch('createStatus', '[ERROR] please enter a password')
@@ -45,6 +47,7 @@ export const actions = {
       const res = await nkn.Wallet.fromJSON(input.wallet, {password: input.password})
       commit('setWallet', res)
       dispatch('updateBalance')
+      dispatch('createStatus', '<SUCCESS> loaded wallet')
     } catch {
       dispatch('createStatus', '[ERROR] incorrect password')
     }

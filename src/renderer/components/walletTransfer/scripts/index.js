@@ -13,12 +13,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wallet','balance']),
+    ...mapState(['wallet','balance', 'explorer']),
   },
   methods: {
     ...mapActions(['updateBalance', 'createStatus']),
     async transferFunds () {
-      // console.log('transfer funds started')
       if (!this.wallet.address || !this.balance || !this.receiveAddress) {
         this.createStatus('[ERROR] no wallet loaded')
       } else {

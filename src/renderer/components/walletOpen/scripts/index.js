@@ -8,13 +8,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['openWallet']),
+    ...mapActions(['openWallet']), // 'recoverFromSeed'
     openFromFile () {
       this.openWallet({ wallet: sendWallet, password: this.password})
     }
-    // this.openFromSeed() {}
+    // this.recoverFromSeed() {}
   },
-  // mounted () {
-  //   console.log('storage', localStorage)
-  // }
 }

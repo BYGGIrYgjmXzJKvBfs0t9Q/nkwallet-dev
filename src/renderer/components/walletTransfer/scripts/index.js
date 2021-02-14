@@ -83,6 +83,7 @@ export default {
     // console.log(`receiver balance: ${(receiverBalance.d[0]/100) * (10 ** receiverBalance.e)} NKN`)
     console.log('sender balance:', senderBalance)
     console.log('receiver balance:', receiverBalance)
+    // is float, needs to be decimal.toFixed()
   }
 }
 

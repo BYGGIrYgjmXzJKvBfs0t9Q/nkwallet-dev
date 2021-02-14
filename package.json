@@ -14,33 +14,34 @@
   "author": "admin <admin>",
   "license": "MIT",
   "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
-  "engines" : {
-    "node" : ">=12.13.0"
+  "engines": {
+    "node": ">=12.13.0"
   },
   "resolutions": {
     "@types/node": "12.12.6"
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "decimal.js": "^10.2.1",
     "nkn-sdk": "^1.2.0"
   },
   "devDependencies": {
     "@xpda-dev/core": "^0.1.5",
-    "@xpda-dev/electron-launcher": "^0.2.1",
     "@xpda-dev/electron-builder": "^0.2.1",
+    "@xpda-dev/electron-launcher": "^0.2.1",
     "@xpda-dev/webpack-step": "^0.1.2",
-    "deepmerge": "4.2.2",
     "browser-env": "3.3.0",
     "cross-env": "7.0.2",
+    "deepmerge": "4.2.2",
     "electron": "8.3.0",
     "electron-builder": "22.8.1",
     "electron-debug": "3.1.0",
+    "fibers": "^5.0.0",
     "native-ext-loader": "2.3.0",
     "nuxt": "2.14.5",
-    "vue-devtools": "5.1.4",
-    "fibers": "^5.0.0",
     "sass": "^1.32.6",
     "sass-loader": "10",
+    "vue-devtools": "5.1.4",
     "webpack": "4.44.2",
     "webpack-node-externals": "2.5.2"
   }

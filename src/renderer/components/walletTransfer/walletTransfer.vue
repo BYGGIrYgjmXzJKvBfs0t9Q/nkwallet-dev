@@ -4,8 +4,8 @@
     <p>sending from address: {{wallet.address}}</p>
     <p>balance: {{balance}}</p>
     <p>to receiving address: {{receiveAddress}}</p>
-    <p>amount: {{amount}}</p>
-    <p>transaction fee: {{fee}}</p>
+    <p>amount: {{amount}} NKN</p>
+    <p>transaction fee: {{fee}} NKN</p>
     <button @click="transferFunds">click to transfer</button>
   </div>
 </template>

@@ -1,3 +1,4 @@
+import { Decimal } from 'decimal.js'
 import nkn from 'nkn-sdk'
 
 export const state = () => ({
@@ -19,7 +20,6 @@ export const mutations = {
     state.error = input
   }
 }
-
 export const actions = {
   createError ({ commit }, input) {
     commit('setError', input)
@@ -28,10 +28,10 @@ export const actions = {
     }, 2500)
   },
   async updateBalance ({ commit }) {
-    console.log('updating balance')
-    const res = await this.state.wallet.getBalance()
-    console.log('got response', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
-    commit('setBalance', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
+    const newBalance = await this.state.wallet.getBalance()
+    const res = new Decimal(newBalance).toFixed()
+    commit('setBalance', `${res} NKN`)
+    // commit('setBalance', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
   },
   async createWallet ({ commit, dispatch }, input) {
     if (input && typeof input === 'string') {

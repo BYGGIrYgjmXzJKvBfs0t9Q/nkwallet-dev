@@ -35,7 +35,8 @@
 //   amount ((number | string | common.Amount))
 //   options (TransactionOptions = {})
 
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex'
+import { Decimal } from 'decimal.js'
 import nkn from 'nkn-sdk'
 import receiveWallet from '@/assets/scripts/receiveWallet.json'
 
@@ -83,6 +84,8 @@ export default {
     // console.log(`receiver balance: ${(receiverBalance.d[0]/100) * (10 ** receiverBalance.e)} NKN`)
     console.log('sender balance:', senderBalance)
     console.log('receiver balance:', receiverBalance)
+    console.log('decimal.js sender:', new Decimal(senderBalance).toFixed())
+    console.log('decimal.js receiver:', new Decimal(receiverBalance).toFixed())
     // is float, needs to be decimal.toFixed()
   }
 }

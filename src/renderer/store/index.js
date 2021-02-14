@@ -44,6 +44,26 @@ export const actions = {
     }, 60 * 1000)
   },
 
+  // for each transaction, nscan.io displays:
+  // payloadType ('transfer', 'mining reward', ...), time created at, hash, amount, from address, to address
+  //
+  // repurpose updateTransactionInfo to filter <wallet info> on updates
+  // 1 api call instead of 2
+  // only can give success/error/nscan url at time of transaction
+  // transaction takes ~1 minute to show up in blockchain
+  // ... so no point in calling api immediately
+  // <wallet info> contains transaction history
+  // ... so no point in calling api at all
+  //
+  // remove fetchTransaction() and handle logic here
+  // probably do the same for fetchWallet as it is only used here
+  //
+  // filter:
+  // <wallet info>.data (array of obj)
+  // ... data[i].hash (transaction hash)
+  // <wallet info>.data[i].payload (obj)
+  // ... senderWallet, recipientWallet, payloadType, created_at, amount (all other info)
+  
   async updateTransactionInfo ({ commit }, input) {
     console.log('updating transaction info in 60 seconds')
     setTimeout(async () => {

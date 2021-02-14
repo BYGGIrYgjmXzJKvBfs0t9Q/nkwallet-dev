@@ -36,7 +36,7 @@ export const actions = {
   },
 
   async updateWalletInfo ({ commit }) {
-    console.log('wallet info updating in 60 seconds')
+    console.log('updating wallet info in 60 seconds')
     setTimeout(async () => { 
       const res = await fetchWallet(this.state.wallet.address)
       console.log('wallet info:', res)
@@ -45,7 +45,7 @@ export const actions = {
   },
 
   async updateTransactionInfo ({ commit }, input) {
-    console.log('transaction info updating in 60 seconds')
+    console.log('updating transaction info in 60 seconds')
     setTimeout(async () => {
       const res = await fetchTransaction(input)
       console.log('transaction info:', res)

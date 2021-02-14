@@ -1,6 +1,6 @@
 <template>
   <div class="status-bar">
-    <p v-if="error" class="error">{{error}}</p>
+    <p v-if="status" class="status">{{status}}</p>
   </div>
 </template>
 

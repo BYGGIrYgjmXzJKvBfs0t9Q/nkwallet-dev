@@ -2,11 +2,11 @@ import { Decimal } from 'decimal.js'
 import nkn from 'nkn-sdk'
 
 export const state = () => ({
-  balance: false,
+  balance: null,
   wallet: {
-    address: false,
+    address: null,
   },
-  error: false
+  status: null
 })
 
 export const mutations = {
@@ -16,29 +16,28 @@ export const mutations = {
   setBalance (state, input) {
     state.balance = input
   },
-  setError (state, input) {
-    state.error = input
+  setStatus (state, input) {
+    state.status = input
   }
 }
 export const actions = {
-  createError ({ commit }, input) {
-    commit('setError', input)
+  createStatus ({ commit }, input) {
+    commit('setStatus', input)
     setTimeout(() => {
-      commit('setError', false)
+      commit('setStatus', false)
     }, 2500)
   },
   async updateBalance ({ commit }) {
     const newBalance = await this.state.wallet.getBalance()
     const res = new Decimal(newBalance).toFixed()
     commit('setBalance', `${res} NKN`)
-    // commit('setBalance', `${(res.d[0]/100) * (10 ** res.e)} NKN`)
   },
   async createWallet ({ commit, dispatch }, input) {
     if (input && typeof input === 'string') {
       commit('setWallet', new nkn.Wallet({password: input}))
       dispatch('updateBalance')
     } else {
-      dispatch('createError', 'please enter a password')
+      dispatch('createStatus', '[ERROR] please enter a password')
     }
   },
   async openWallet ({ commit, dispatch }, input) {
@@ -47,7 +46,7 @@ export const actions = {
       commit('setWallet', res)
       dispatch('updateBalance')
     } catch {
-      dispatch('createError', 'incorrect password')
+      dispatch('createStatus', '[ERROR] incorrect password')
     }
   }
 }

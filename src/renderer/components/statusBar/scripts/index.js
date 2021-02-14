@@ -2,6 +2,9 @@ import { mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['error'])
+    ...mapState(['status'])
   }
 }
+
+// todo:
+// push updates to a queue, or override last update + reset timeout

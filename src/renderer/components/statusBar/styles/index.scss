@@ -4,9 +4,15 @@
   left: 0;
   width: 100%;
   background: grey;
-  border: 12px solid black;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   pointer-events: none;
+}
+
+.status {
+  position: relative;
+  padding: 24px;
+  color: blue;
+  font-weight: bold;
 }

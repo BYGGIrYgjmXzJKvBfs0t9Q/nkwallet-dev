@@ -14,7 +14,7 @@ export default {
     }
     // this.openFromSeed() {}
   },
-  mounted () {
-    console.log('storage', localStorage)
-  }
+  // mounted () {
+  //   console.log('storage', localStorage)
+  // }
 }

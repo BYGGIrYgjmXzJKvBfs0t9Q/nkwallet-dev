@@ -1,6 +1,51 @@
 import { Decimal } from 'decimal.js'
 import nkn from 'nkn-sdk'
-import {fetchWallet, fetchTransaction} from '@/assets/scripts/openApi.js'
+import axios from 'axios'
+
+// transactions =
+// filter ...state.walletInfo.data: (array of obj)
+// ... data[i].hash
+// ... data[i].payload (obj)
+//     ... senderWallet, recipientWallet, payloadType, created_at, amount
+
+async function fetchWallet (input) {
+  const prefix = 'https://openapi.nkn.org/api/v1/'
+  const webPrefix = 'https://nscan.io/'
+  const suffix = `addresses/${input}`
+
+  const wallet = await axios.get(`${prefix}${suffix}`)
+  const transactions = await axios.get(`${prefix}${suffix}/transactions`)
+  const webUrl = `${webPrefix}${suffix}`
+
+  const th = transactions.data.data
+  // const fth = th.filter((rec) => {
+  //   return rec.payload.payload
+  // })
+
+  const fth = []
+
+  for (let i=0; i<th.length; i+=1) {
+    const d = th[i].payload
+    fth.push({
+      sender: d.senderWallet,
+      recipent: d.recipientWallet,
+      type: d.payloadType,
+      time: d.created_at,
+      amount: d.amount
+    })
+  }
+  
+  // .filter((item) => {
+
+    // const pl = item.payload
+    // return item.payload
+    
+  // })
+
+  return { 'filtered:': fth }
+
+
+}
 
 export const state = () => ({
   balance: null,
@@ -21,7 +66,7 @@ export const mutations = {
 }
 
 export const actions = {
-  
+
   createStatus ({ commit }, input) {
     commit('setStatus', input)
     setTimeout(() => {
@@ -36,41 +81,9 @@ export const actions = {
   },
 
   async updateWalletInfo ({ commit }) {
-    console.log('updating wallet info in 60 seconds')
-    setTimeout(async () => { 
       const res = await fetchWallet(this.state.wallet.address)
       console.log('wallet info:', res)
       commit('setWalletInfo', res)
-    }, 60 * 1000)
-  },
-
-  // for each transaction, nscan.io displays:
-  // payloadType ('transfer', 'mining reward', ...), time created at, hash, amount, from address, to address
-  //
-  // repurpose updateTransactionInfo to filter <wallet info> on updates
-  // 1 api call instead of 2
-  // only can give success/error/nscan url at time of transaction
-  // transaction takes ~1 minute to show up in blockchain
-  // ... so no point in calling api immediately
-  // <wallet info> contains transaction history
-  // ... so no point in calling api at all
-  //
-  // remove fetchTransaction() and handle logic here
-  // probably do the same for fetchWallet as it is only used here
-  //
-  // filter:
-  // <wallet info>.data (array of obj)
-  // ... data[i].hash (transaction hash)
-  // <wallet info>.data[i].payload (obj)
-  // ... senderWallet, recipientWallet, payloadType, created_at, amount (all other info)
-  
-  async updateTransactionInfo ({ commit }, input) {
-    console.log('updating transaction info in 60 seconds')
-    setTimeout(async () => {
-      const res = await fetchTransaction(input)
-      console.log('transaction info:', res)
-      commit('setTransactionInfo', res)
-    }, 60 * 1000)
   },
 
   async createWallet ({ commit, dispatch }, input) {
@@ -93,5 +106,7 @@ export const actions = {
       dispatch('createStatus', '[ERROR] incorrect password')
     }
   }
+
+  // restoreWallet ...
 
 }

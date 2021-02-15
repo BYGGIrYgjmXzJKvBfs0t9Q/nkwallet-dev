@@ -16,7 +16,7 @@ export default {
     ...mapState(['wallet','balance', 'explorer']),
   },
   methods: {
-    ...mapActions(['updateBalance', 'createStatus', 'updateTransactionInfo', 'updateWalletInfo']),
+    ...mapActions(['updateBalance', 'createStatus', 'updateWalletInfo']),
     async transferFunds () {
       if (!this.wallet.address || !this.balance || !this.receiveAddress) {
         this.createStatus('[ERROR] no wallet loaded')
@@ -24,10 +24,14 @@ export default {
         try {
           const transferId = await this.wallet.transferTo(this.receiveAddress, this.amount, {fee: this.fee})
           this.createStatus(`<SUCCESS> transfer ID: ${transferId}`)
-          this.updateTransactionInfo(transferId)
-          this.updateWalletInfo()
-          this.updateBalance()
-          this.getReceiverBalance()
+
+          let temp = this
+          setTimeout(() => {
+            temp.updateWalletInfo()
+            temp.updateBalance()
+            temp.getReceiverBalance()
+          }, 60000)
+          
         } catch (e) {
           this.createStatus(`[ERROR] ${e}`)
         }

@@ -1,4 +1,5 @@
 import { mapState } from 'vuex';
+import { toDisplay } from '@/assets/scripts/utils.js'
 
 export default {
   computed: {
@@ -7,7 +8,7 @@ export default {
       return this.info.address
     },
     balance () {
-      return this.info.balance
+      return toDisplay(this.info.balance)
     }
   },
 }

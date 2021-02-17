@@ -2,6 +2,7 @@ import { mapActions, mapState } from 'vuex'
 import { Decimal } from 'decimal.js'
 import nkn from 'nkn-sdk'
 import receiveWallet from '@/assets/scripts/receiveWallet.json'
+import { toDisplay } from '@/assets/scripts/utils.js'
 
 export default {
   data () {
@@ -18,7 +19,7 @@ export default {
       return this.info.address
     },
     balance () {
-      return this.info.balance
+      return toDisplay(this.info.balance)
     }
   },
   methods: {
@@ -29,10 +30,7 @@ export default {
       } else {
         try {
           const transferId = await this.wallet.transferTo(this.receiveAddress, this.amount, {fee: this.fee})
-
-          // add nscan url here
-          this.createStatus(`<SUCCESS> transfer ID: ${transferId}`)
-
+          this.createStatus(`<SUCCESS> https://nscan.io/transactions/${transferId}`)
           let temp = this
           setTimeout(() => {
             temp.refreshWallet()

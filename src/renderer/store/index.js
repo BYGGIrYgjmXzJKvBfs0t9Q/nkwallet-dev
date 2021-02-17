@@ -1,4 +1,3 @@
-import { Decimal } from 'decimal.js'
 import nkn from 'nkn-sdk'
 import axios from 'axios'
 
@@ -17,14 +16,14 @@ async function fetchWallet (input) {
       recipent: pl.recipientWallet,
       type: pl.payloadType,
       time: pl.created_at,
-      amount: pl.amount / 100000000,
+      amount: pl.amount,
       url: `https://nscan.io/transactions/${hash}`
     })
   }
 
   return {
     address: walletData.address,
-    balance: walletData.balance / 100000000,
+    balance: walletData.balance,
     url: `https://nscan.io/addresses/${input}`,
     transactions: {
       count: walletData.count_transactions,
@@ -61,8 +60,6 @@ export const actions = {
     }, 2500)
   },
   
-  // new Decimal(<wallet.getBalance() object>).toFixed()
-
   async refreshWallet ({ commit }) {
       const res = await fetchWallet(this.state.wallet.address)
       commit('setInfo', res)

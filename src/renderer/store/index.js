@@ -17,14 +17,14 @@ async function fetchWallet (input) {
       recipent: pl.recipientWallet,
       type: pl.payloadType,
       time: pl.created_at,
-      amount: pl.amount,
+      amount: pl.amount / 100000000,
       url: `https://nscan.io/transactions/${hash}`
     })
   }
 
   return {
     address: walletData.address,
-    balance: walletData.balance,
+    balance: walletData.balance / 100000000,
     url: `https://nscan.io/addresses/${input}`,
     transactions: {
       count: walletData.count_transactions,
@@ -42,13 +42,12 @@ async function fetchWallet (input) {
 
 export const state = () => ({
   wallet: {},
-  status: null,
-  info: {}
+  info: {},
+  status: false
 })
 
 export const mutations = {
   setWallet (state, input) {state.wallet = input},
-  // setBalance (state, input) {state.balance = input},
   setStatus (state, input) {state.status = input},
   setInfo (state, input) {state.info = input},
 }
@@ -62,13 +61,7 @@ export const actions = {
     }, 2500)
   },
   
-  // remove and use balance returned from refreshWallet?
-  // fewer api calls, no decimal.js dependency
-  // async updateBalance ({ commit }) {
-    // const newBalance = await this.state.wallet.getBalance()
-    // const res = new Decimal(newBalance).toFixed()
-    // commit('setBalance', `${res} NKN`)
-  // },
+  // new Decimal(<wallet.getBalance() object>).toFixed()
 
   async refreshWallet ({ commit }) {
       const res = await fetchWallet(this.state.wallet.address)
@@ -78,7 +71,6 @@ export const actions = {
   async createWallet ({ commit, dispatch }, input) {
     if (input && typeof input === 'string') {
       commit('setWallet', new nkn.Wallet({password: input}))
-      // dispatch('updateBalance')
       dispatch('refreshWallet')
       dispatch('createStatus', '<SUCCESS> created wallet')
     } else {
@@ -90,7 +82,6 @@ export const actions = {
     try {
       const res = await nkn.Wallet.fromJSON(input.wallet, {password: input.password})
       commit('setWallet', res)
-      // dispatch('updateBalance')
       dispatch('refreshWallet')
       dispatch('createStatus', '<SUCCESS> loaded wallet')
     } catch {

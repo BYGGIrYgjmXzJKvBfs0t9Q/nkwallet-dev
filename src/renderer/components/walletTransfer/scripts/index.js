@@ -13,7 +13,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wallet','balance', 'info']),
+    ...mapState(['wallet', 'info']),
     address () {
       return this.info.address
     },

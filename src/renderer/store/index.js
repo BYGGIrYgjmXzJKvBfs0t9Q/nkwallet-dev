@@ -46,16 +46,14 @@ export const state = () => ({
     address: null,
   },
   status: null,
-  walletInfo: null,
-  transactionInfo: null
+  info: null
 })
 
 export const mutations = {
   setWallet (state, input) {state.wallet = input},
   setBalance (state, input) {state.balance = input},
   setStatus (state, input) {state.status = input},
-  setWalletInfo (state, input) {state.walletInfo = input},
-  setTransactionInfo (state, input) {state.transactionInfo = input}
+  setInfo (state, input) {state.info = input},
 }
 
 export const actions = {
@@ -66,17 +64,17 @@ export const actions = {
       commit('setStatus', false)
     }, 2500)
   },
-
+  
+  // remove and use balance returned from refreshWallet?
   async updateBalance ({ commit }) {
     const newBalance = await this.state.wallet.getBalance()
     const res = new Decimal(newBalance).toFixed()
     commit('setBalance', `${res} NKN`)
   },
 
-  async updateWalletInfo ({ commit }) {
+  async refreshWallet ({ commit }) {
       const res = await fetchWallet(this.state.wallet.address)
-      console.log('wallet info:', res)
-      commit('setWalletInfo', res)
+      commit('setInfo', res)
   },
 
   async createWallet ({ commit, dispatch }, input) {

@@ -16,7 +16,7 @@ export default {
     ...mapState(['wallet','balance', 'explorer']),
   },
   methods: {
-    ...mapActions(['updateBalance', 'createStatus', 'updateWalletInfo']),
+    ...mapActions(['updateBalance', 'createStatus', 'refreshWallet']),
     async transferFunds () {
       if (!this.wallet.address || !this.balance || !this.receiveAddress) {
         this.createStatus('[ERROR] no wallet loaded')
@@ -29,7 +29,7 @@ export default {
 
           let temp = this
           setTimeout(() => {
-            temp.updateWalletInfo()
+            temp.refreshWallet()
             temp.updateBalance()
             temp.getReceiverBalance()
           }, 60000)

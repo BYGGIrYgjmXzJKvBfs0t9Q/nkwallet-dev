@@ -6,45 +6,36 @@ import axios from 'axios'
 // filter ...state.walletInfo.data: (array of obj)
 // ... data[i].hash
 // ... data[i].payload (obj)
-//     ... senderWallet, recipientWallet, payloadType, created_at, amount
 
 async function fetchWallet (input) {
-  const prefix = 'https://openapi.nkn.org/api/v1/'
-  const webPrefix = 'https://nscan.io/'
+
   const suffix = `addresses/${input}`
+  const walletData = await axios.get(`https://openapi.nkn.org/api/v1/${suffix}`)
+  const transactionData = await axios.get(`https://openapi.nkn.org/api/v1/${suffix}/transactions`)
+  const pre = transactionData.data.data
+  const res = []
 
-  const wallet = await axios.get(`${prefix}${suffix}`)
-  const transactions = await axios.get(`${prefix}${suffix}/transactions`)
-  const webUrl = `${webPrefix}${suffix}`
-
-  const th = transactions.data.data
-  // const fth = th.filter((rec) => {
-  //   return rec.payload.payload
-  // })
-
-  const fth = []
-
-  for (let i=0; i<th.length; i+=1) {
-    const d = th[i].payload
-    fth.push({
-      sender: d.senderWallet,
-      recipent: d.recipientWallet,
-      type: d.payloadType,
-      time: d.created_at,
-      amount: d.amount
+  for (let i=0; i<pre.length; i+=1) {
+    const p = pre[i].payload
+    const hash = pre[i].hash
+    res.push({
+      hash,
+      sender: p.senderWallet,
+      recipent: p.recipientWallet,
+      type: p.payloadType,
+      time: p.created_at,
+      amount: p.amount,
+      url: `https://nscan.io/transactions/${hash}`
     })
   }
-  
-  // .filter((item) => {
 
-    // const pl = item.payload
-    // return item.payload
-    
-  // })
-
-  return { 'filtered:': fth }
-
-
+  return {
+    url: `https://nscan.io/${suffix}`,
+    ...walletData.data,
+    transactions: res,
+    // beforeFilter: pre,
+    // initialResponse: transactionData
+  }
 }
 
 export const state = () => ({

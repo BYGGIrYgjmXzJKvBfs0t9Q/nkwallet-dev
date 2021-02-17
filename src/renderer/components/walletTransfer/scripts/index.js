@@ -23,6 +23,8 @@ export default {
       } else {
         try {
           const transferId = await this.wallet.transferTo(this.receiveAddress, this.amount, {fee: this.fee})
+
+          // add nscan url here
           this.createStatus(`<SUCCESS> transfer ID: ${transferId}`)
 
           let temp = this

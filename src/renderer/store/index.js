@@ -81,7 +81,6 @@ export const actions = {
       dispatch('refreshWallet')
       dispatch('createStatus', '<SUCCESS> loaded wallet')
     } catch (e) {
-      // dispatch('createStatus', '[ERROR] incorrect password')
       dispatch('createStatus', `[ERROR] ${e}`)
     }
   },

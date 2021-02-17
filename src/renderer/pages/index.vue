@@ -5,6 +5,7 @@
     <wallet-open />
     <wallet-transfer />
     <transactions />
+    <wallet-restore />
     <status-bar />
   </div>
 </template>

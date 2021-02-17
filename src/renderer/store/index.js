@@ -80,11 +80,28 @@ export const actions = {
       commit('setWallet', res)
       dispatch('refreshWallet')
       dispatch('createStatus', '<SUCCESS> loaded wallet')
-    } catch {
-      dispatch('createStatus', '[ERROR] incorrect password')
+    } catch (e) {
+      // dispatch('createStatus', '[ERROR] incorrect password')
+      dispatch('createStatus', `[ERROR] ${e}`)
+    }
+  },
+
+  // restore from seed (same as above, not used anywhere yet)
+  async restoreWallet ({commit, dispatch}, input) {
+    if (!input.seed || !input.password) {
+      dispatch('createStatus', '[ERROR] please fill out all fields')
+    } else {
+    try {
+      const res = await new nkn.Wallet({seed: input.seed, password: input.password})
+      commit('setWallet', res)
+      dispatch('refreshWallet')
+      dispatch('createStatus', '<SUCCESS> loaded wallet')
+    } catch (e) {
+      dispatch('createStatus', `[ERROR] ${e}`)
     }
   }
 
-  // restoreWallet ...
+
+  }
 
 }

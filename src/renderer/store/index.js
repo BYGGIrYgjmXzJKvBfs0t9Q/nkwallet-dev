@@ -13,7 +13,7 @@ async function fetchWallet (input) {
     transactionHistory.push({
       hash,
       sender: pl.senderWallet,
-      recipent: pl.recipientWallet,
+      recipient: pl.recipientWallet,
       type: pl.payloadType,
       time: pl.created_at,
       amount: pl.amount,
@@ -52,17 +52,16 @@ export const mutations = {
 }
 
 export const actions = {
-
   createStatus ({ commit }, input) {
     commit('setStatus', input)
     setTimeout(() => {
       commit('setStatus', false)
     }, 2500)
   },
-  
+
   async refreshWallet ({ commit }) {
-      const res = await fetchWallet(this.state.wallet.address)
-      commit('setInfo', res)
+    const res = await fetchWallet(this.state.wallet.address)
+    commit('setInfo', res)
   },
 
   async createWallet ({ commit, dispatch }, input) {

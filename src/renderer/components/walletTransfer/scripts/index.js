@@ -16,7 +16,7 @@ export default {
   computed: {
     ...mapState(['wallet', 'info']),
     address () {
-      return this.info.address
+      return this.info.address || 'n/a'
     },
     balance () {
       return toDisplay(this.info.balance)

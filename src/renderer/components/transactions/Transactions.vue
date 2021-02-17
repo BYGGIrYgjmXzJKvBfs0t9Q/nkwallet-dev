@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <p class="title">transactions</p>
   </div>
 </template>
 

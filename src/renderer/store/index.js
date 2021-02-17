@@ -41,17 +41,14 @@ async function fetchWallet (input) {
 }
 
 export const state = () => ({
-  balance: null,
-  wallet: {
-    address: null,
-  },
+  wallet: {},
   status: null,
-  info: null
+  info: {}
 })
 
 export const mutations = {
   setWallet (state, input) {state.wallet = input},
-  setBalance (state, input) {state.balance = input},
+  // setBalance (state, input) {state.balance = input},
   setStatus (state, input) {state.status = input},
   setInfo (state, input) {state.info = input},
 }
@@ -66,11 +63,12 @@ export const actions = {
   },
   
   // remove and use balance returned from refreshWallet?
-  async updateBalance ({ commit }) {
-    const newBalance = await this.state.wallet.getBalance()
-    const res = new Decimal(newBalance).toFixed()
-    commit('setBalance', `${res} NKN`)
-  },
+  // fewer api calls, no decimal.js dependency
+  // async updateBalance ({ commit }) {
+    // const newBalance = await this.state.wallet.getBalance()
+    // const res = new Decimal(newBalance).toFixed()
+    // commit('setBalance', `${res} NKN`)
+  // },
 
   async refreshWallet ({ commit }) {
       const res = await fetchWallet(this.state.wallet.address)
@@ -80,8 +78,9 @@ export const actions = {
   async createWallet ({ commit, dispatch }, input) {
     if (input && typeof input === 'string') {
       commit('setWallet', new nkn.Wallet({password: input}))
+      // dispatch('updateBalance')
+      dispatch('refreshWallet')
       dispatch('createStatus', '<SUCCESS> created wallet')
-      dispatch('updateBalance')
     } else {
       dispatch('createStatus', '[ERROR] please enter a password')
     }
@@ -91,7 +90,8 @@ export const actions = {
     try {
       const res = await nkn.Wallet.fromJSON(input.wallet, {password: input.password})
       commit('setWallet', res)
-      dispatch('updateBalance')
+      // dispatch('updateBalance')
+      dispatch('refreshWallet')
       dispatch('createStatus', '<SUCCESS> loaded wallet')
     } catch {
       dispatch('createStatus', '[ERROR] incorrect password')

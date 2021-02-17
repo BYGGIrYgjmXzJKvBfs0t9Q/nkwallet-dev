@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <p class='title'>transfer funds</p>
-    <p>sending from address: {{wallet.address}}</p>
+    <p>sending from address: {{address}}</p>
     <p>balance: {{balance}}</p>
     <p>to receiving address: {{receiveAddress}}</p>
     <p>balance: {{receiverBalance}}</p>

@@ -13,10 +13,16 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wallet','balance', 'explorer']),
+    ...mapState(['wallet','balance', 'info']),
+    address () {
+      return this.info.address
+    },
+    balance () {
+      return this.info.balance
+    }
   },
   methods: {
-    ...mapActions(['updateBalance', 'createStatus', 'refreshWallet']),
+    ...mapActions(['createStatus', 'refreshWallet']),
     async transferFunds () {
       if (!this.wallet.address || !this.balance || !this.receiveAddress) {
         this.createStatus('[ERROR] no wallet loaded')
@@ -30,7 +36,6 @@ export default {
           let temp = this
           setTimeout(() => {
             temp.refreshWallet()
-            temp.updateBalance()
             temp.getReceiverBalance()
           }, 60000)
           

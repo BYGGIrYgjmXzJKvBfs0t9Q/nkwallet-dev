@@ -6,10 +6,10 @@
     <input v-model="fee" type="text" placeholder="enter fee" />
     <p class='title'>review and submit</p>
     <p>sending from address: {{address}}</p>
-    <p>to receiving address: {{recipient}} - ({{isValid}})</p>
-    <p>balance: {{balance}}</p>
-    <p>amount: {{amount}} NKN</p>
-    <p>transaction fee: {{fee}} NKN</p>
+    <p>to receiving address: {{displayRecipient}}</p>
+    <p>balance: {{displayBalance}}</p>
+    <p>amount: {{displayAmount}}</p>
+    <p>transaction fee: {{displayFee}}</p>
     <button @click="transferFunds">click to transfer</button>
   </div>
 </template>

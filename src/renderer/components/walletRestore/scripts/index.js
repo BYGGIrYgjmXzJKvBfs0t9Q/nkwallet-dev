@@ -10,7 +10,7 @@ export default {
   methods: {
     ...mapActions(['restoreWallet']),
     openFromSeed () {
-        this.restoreWallet({ seed: this.seed, password: this.password})
+      this.restoreWallet({ seed: this.seed, password: this.password})
     }
   },
 }

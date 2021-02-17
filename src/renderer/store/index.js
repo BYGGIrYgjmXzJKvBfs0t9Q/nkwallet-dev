@@ -29,12 +29,23 @@ async function fetchWallet (input) {
     })
   }
 
+  const wre = walletData.data
+
   return {
+    address: wre.address,
+    balance: wre.balance,
     url: `https://nscan.io/${suffix}`,
-    ...walletData.data,
-    transactions: res,
-    // beforeFilter: pre,
-    // initialResponse: transactionData
+    transactions: {
+      count: wre.count_transactions,
+      first: wre.first_transaction,
+      last: wre.last_transaction,
+      pages: {
+        current: transactionData.data.current_page,
+        next: transactionData.data.next_page_url,
+        prev: transactionData.data.prev_page_url,
+      },
+      history: res
+    }
   }
 }
 

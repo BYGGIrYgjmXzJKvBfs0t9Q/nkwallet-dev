@@ -2,49 +2,40 @@ import { Decimal } from 'decimal.js'
 import nkn from 'nkn-sdk'
 import axios from 'axios'
 
-// transactions =
-// filter ...state.walletInfo.data: (array of obj)
-// ... data[i].hash
-// ... data[i].payload (obj)
-
 async function fetchWallet (input) {
 
-  const suffix = `addresses/${input}`
-  const walletData = await axios.get(`https://openapi.nkn.org/api/v1/${suffix}`)
-  const transactionData = await axios.get(`https://openapi.nkn.org/api/v1/${suffix}/transactions`)
-  const pre = transactionData.data.data
-  const res = []
+  const walletData = await axios.get(`https://openapi.nkn.org/api/v1/addresses/${input}`).then(res => res.data)
+  const transactionData = await axios.get(`https://openapi.nkn.org/api/v1/addresses/${input}/transactions`).then(res => res.data)
+  const transactionHistory = []
 
-  for (let i=0; i<pre.length; i+=1) {
-    const p = pre[i].payload
-    const hash = pre[i].hash
-    res.push({
+  for (let i=0; i<transactionData.data.length; i+=1) {
+    const pl = transactionData.data[i].payload
+    const hash = transactionData.data[i].hash
+    transactionHistory.push({
       hash,
-      sender: p.senderWallet,
-      recipent: p.recipientWallet,
-      type: p.payloadType,
-      time: p.created_at,
-      amount: p.amount,
+      sender: pl.senderWallet,
+      recipent: pl.recipientWallet,
+      type: pl.payloadType,
+      time: pl.created_at,
+      amount: pl.amount,
       url: `https://nscan.io/transactions/${hash}`
     })
   }
 
-  const wre = walletData.data
-
   return {
-    address: wre.address,
-    balance: wre.balance,
-    url: `https://nscan.io/${suffix}`,
+    address: walletData.address,
+    balance: walletData.balance,
+    url: `https://nscan.io/addresses/${input}`,
     transactions: {
-      count: wre.count_transactions,
-      first: wre.first_transaction,
-      last: wre.last_transaction,
+      count: walletData.count_transactions,
+      first: walletData.first_transaction,
+      last: walletData.last_transaction,
       pages: {
-        current: transactionData.data.current_page,
-        next: transactionData.data.next_page_url,
-        prev: transactionData.data.prev_page_url,
+        current: transactionData.current_page,
+        next: transactionData.next_page_url,
+        previous: transactionData.prev_page_url,
       },
-      history: res
+      history: transactionHistory
     }
   }
 }
